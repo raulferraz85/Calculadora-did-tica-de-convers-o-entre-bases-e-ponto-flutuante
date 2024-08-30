@@ -115,3 +115,89 @@ void decToTwosComplement(int n) {
     }
     printf("\n");
 }
+void printFloatBits(float num) {
+    union {
+        float input;
+        int output;
+    } data;
+
+    data.input = num;
+
+    printf("Bits do float: ");
+    for (int i = 31; i >= 0; i--) {
+        printf("%d", (data.output >> i) & 1);
+        if (i == 31) printf(" (Sinal) ");
+        if (i == 23) printf(" (Expoente) ");
+        if (i == 0) printf(" (Fração) ");
+    }
+    printf("\n");
+}
+
+void printDoubleBits(double num) {
+    union {
+        double input;
+        long long output;
+    } data;
+
+    data.input = num;
+
+    printf("Bits do double: ");
+    for (int i = 63; i >= 0; i--) {
+        printf("%lld", (data.output >> i) & 1);
+        if (i == 63) printf(" (Sinal) ");
+        if (i == 52) printf(" (Expoente) ");
+        if (i == 0) printf(" (Fração) ");
+    }
+    printf("\n");
+}
+
+int main() {
+    int n, opcao;
+    float numF;
+    double numD;
+
+    printf("Digite um número em base 10: ");
+    scanf("%d", &n);
+
+    printf("Escolha uma conversão:\n");
+    printf("1 - Base 10 para base 2\n");
+    printf("2 - Base 10 para base 8\n");
+    printf("3 - Base 10 para base 16\n");
+    printf("4 - Base 10 para BCD\n");
+    printf("5 - Base 10 para complemento a 2 (16 bits)\n");
+    printf("6 - Converter número real em float e mostrar bits\n");
+    printf("7 - Converter número real em double e mostrar bits\n");
+    scanf("%d", &opcao);
+
+    switch (opcao) {
+        case 1:
+            decToBin(n);
+            break;
+        case 2:
+            decToOctal(n);
+            break;
+        case 3:
+            decToHex(n);
+            break;
+        case 4:
+            decToBCD(n);
+            break;
+        case 5:
+            decToTwosComplement(n);
+            break;
+        case 6:
+            printf("Digite um número real: ");
+            scanf("%f", &numF);
+            printFloatBits(numF);
+            break;
+        case 7:
+            printf("Digite um número real: ");
+            scanf("%lf", &numD);
+            printDoubleBits(numD);
+            break;
+        default:
+            printf("Opção inválida.\n");
+    }
+
+    return 0;
+}
