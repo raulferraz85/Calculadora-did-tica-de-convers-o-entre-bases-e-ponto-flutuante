@@ -72,3 +72,46 @@ void decToBCD(int n) {
     }
     printf("\n");
 }
+void decToTwosComplement(int n) {
+    int bits[16];
+    int i = 15;
+    if (n >= 0) {
+        while (n > 0 && i >= 0) {
+            bits[i] = n % 2;
+            n = n / 2;
+            i--;
+        }
+        while (i >= 0) {
+            bits[i] = 0;
+            i--;
+        }
+    } else {
+        n = abs(n);
+        while (n > 0 && i >= 0) {
+            bits[i] = n % 2;
+            n = n / 2;
+            i--;
+        }
+        while (i >= 0) {
+            bits[i] = 1;
+            i--;
+        }
+        int carry = 1;
+        for (int j = 15; j >= 0; j--) {
+            bits[j] = bits[j] ^ 1;
+            if (carry) {
+                if (bits[j] == 0) {
+                    bits[j] = 1;
+                    carry = 0;
+                } else {
+                    bits[j] = 0;
+                }
+            }
+        }
+    }
+    printf("Passo a passo da conversão para complemento de 2 (16 bits):\n");
+    for (int j = 0; j < 16; j++) {
+        printf("%d", bits[j]);
+    }
+    printf("\n");
+}
