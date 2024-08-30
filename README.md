@@ -35,3 +35,40 @@ void decToOctal(int n) {
     }
     printf("\n");
 }
+void decToHex(int n) {
+    char hex[32];
+    int i = 0;
+    while (n > 0) {
+        int temp = n % 16;
+        if (temp < 10) {
+            hex[i] = temp + 48;
+        } else {
+            hex[i] = temp + 55;
+        }
+        n = n / 16;
+        i++;
+    }
+    printf("Passo a passo da conversão para base 16:\n");
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%c", hex[j]);
+    }
+    printf("\n");
+}
+
+void decToBCD(int n) {
+    int bcd[32];
+    int i = 0;
+    printf("Passo a passo da conversão para BCD:\n");
+    while (n > 0) {
+        int digit = n % 10;
+        for (int j = 0; j < 4; j++) {
+            bcd[i + j] = (digit >> j) & 1;
+        }
+        i += 4;
+        n = n / 10;
+    }
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%d", bcd[j]);
+    }
+    printf("\n");
+}
