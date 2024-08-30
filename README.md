@@ -3,6 +3,9 @@ Calculadora didática de conversão entre bases e ponto flutuante de precisão s
 #include <stdio.h>
 
 
+#include <stdio.h>
+#include <stdlib.h>
+
 void decToBin(int n) {
     int bin[32];
     int i = 0;
@@ -18,13 +21,17 @@ void decToBin(int n) {
     printf("\n");
 }
 
-int main() {
-    int n;
-
-    printf("Digite um número em base 10: ");
-    scanf("%d", &n);
-
-    decToBin(n);
-
-    return 0;
+void decToOctal(int n) {
+    int octal[32];
+    int i = 0;
+    while (n > 0) {
+        octal[i] = n % 8;
+        n = n / 8;
+        i++;
+    }
+    printf("Passo a passo da conversão para base 8:\n");
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%d", octal[j]);
+    }
+    printf("\n");
 }
